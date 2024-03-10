@@ -6,6 +6,7 @@ import { headers } from "next/headers";
 import { config } from "@/lib/config";
 import WagmiProviderConfig from "@/lib/wagmi-provider";
 import { Navbar } from "@/components/Navbar";
+import { Web3InfoProvider } from "@/context/Web3InfoProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,8 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <WagmiProviderConfig initialState={initialState}>
-          <Navbar />
-          {children}
+          <Web3InfoProvider>
+            <Navbar />
+            {children}
+          </Web3InfoProvider>
         </WagmiProviderConfig>
       </body>
     </html>
