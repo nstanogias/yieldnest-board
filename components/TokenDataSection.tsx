@@ -37,13 +37,15 @@ export const TokenDataSection = () => {
       </div>
       <div className="mt-8 flex gap-2">
         <span className="font-semibold">User Balance</span>
-        <span>{formatUnits(BigInt(userBalance), 18)}</span>
+        {userBalance && <span>{formatUnits(BigInt(userBalance), 18)}</span>}
       </div>
       <div className="mt-3 flex gap-2">
         <span className="font-semibold">Total Supply</span>
-        <span>
-          {formatUnits(BigInt(tokenSupply), 18)} {tokenName}
-        </span>
+        {tokenSupply && (
+          <span>
+            {formatUnits(BigInt(tokenSupply), 18)} {tokenName}
+          </span>
+        )}
       </div>
     </section>
   );

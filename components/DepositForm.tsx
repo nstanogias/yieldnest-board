@@ -35,38 +35,49 @@ const DepositForm = () => {
       return;
     }
     try {
-      const allowance = await readContract(config, {
+      // const allowance = await readContract(config, {
+      //   address: ynETHContractAddress,
+      //   abi: ynETHContractABI,
+      //   functionName: "allowance",
+      //   args: [address ?? `0x${""}`, ynETHContractAddress],
+      // });
+      // console.log(allowance);
+      // if (allowance !== undefined && Number(BigInt(allowance)) < +numTokens) {
+      //   const result = await writeContract(config, {
+      //     abi: ynETHContractABI,
+      //     address: ynETHContractAddress,
+      //     functionName: "approve",
+      //     args: [ynETHContractAddress, parseEther(numTokens)],
+      //   });
+      //   if (result) {
+      //     setTimeout(() => {
+      //       writeContractHook({
+      //         address: ynETHContractAddress,
+      //         abi: ynETHContractABI,
+      //         functionName: "depositETH",
+      //         value: parseEther(numTokens),
+      //         args: [address ?? `0x${""}`],
+      //       });
+      //     }, 1000);
+      //   }
+      // }
+      // else {
+      // writeContractHook({
+      //   address: ynETHContractAddress,
+      //   abi: ynETHContractABI,
+      //   functionName: "depositETH",
+      //   // value: parseEther(numTokens),
+      //   args: [address ?? `0x${""}`],
+      // });
+      const result = await writeContract(config, {
         address: ynETHContractAddress,
         abi: ynETHContractABI,
-        functionName: "allowance",
-        args: [address ?? `0x${""}`, ynETHContractAddress],
+        functionName: "depositETH",
+        value: BigInt(parseEther(numTokens)),
+        args: [address ?? `0x${""}`],
       });
-      console.log(allowance);
-      if (allowance !== undefined && Number(BigInt(allowance)) < +numTokens) {
-        const result = await writeContract(config, {
-          abi: ynETHContractABI,
-          address: ynETHContractAddress,
-          functionName: "approve",
-          args: [ynETHContractAddress, parseEther(numTokens)],
-        });
-        if (result) {
-          setTimeout(() => {
-            writeContractHook({
-              address: ynETHContractAddress,
-              abi: ynETHContractABI,
-              functionName: "depositETH",
-              args: [ynETHContractAddress],
-            });
-          }, 1000);
-        }
-      } else {
-        writeContractHook({
-          address: ynETHContractAddress,
-          abi: ynETHContractABI,
-          functionName: "depositETH",
-          args: [ynETHContractAddress],
-        });
-      }
+      console.log(result);
+      // }
     } catch (error) {
       console.error(error);
     }

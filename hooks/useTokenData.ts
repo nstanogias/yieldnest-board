@@ -51,7 +51,6 @@ const useTokenData = (
             {
               ...tokenContract,
               functionName: "decimals",
-              args: [69],
             },
             {
               ...tokenContract,
