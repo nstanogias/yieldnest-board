@@ -23,7 +23,7 @@ export default function RootLayout({
   const initialState = cookieToInitialState(config, headers().get("cookie"));
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-slate-200`}>
         <WagmiProviderConfig initialState={initialState}>
           <Web3InfoProvider>
             <Navbar />
