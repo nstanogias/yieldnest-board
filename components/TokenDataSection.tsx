@@ -4,6 +4,7 @@ import { useWeb3 } from "@/context/Web3InfoProvider";
 import { ynETHContractAddress, ynETHContractABI } from "@/contract";
 import useTokenData from "@/hooks/useTokenData";
 import InfoCard from "./InfoCard";
+import { formatUnits } from "viem";
 
 export const TokenDataSection = () => {
   const { address } = useWeb3();
@@ -36,12 +37,12 @@ export const TokenDataSection = () => {
       </div>
       <div className="mt-8 flex gap-2">
         <span className="font-semibold">User Balance</span>
-        <span>{userBalance.toString()}</span>
+        <span>{formatUnits(BigInt(userBalance), 18)}</span>
       </div>
       <div className="mt-3 flex gap-2">
         <span className="font-semibold">Total Supply</span>
         <span>
-          {tokenSupply.toString()} {tokenName}
+          {formatUnits(BigInt(tokenSupply), 18)} {tokenName}
         </span>
       </div>
     </section>

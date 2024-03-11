@@ -9,8 +9,8 @@ type TokenData = {
   tokenAddress: string;
   tokenName: string;
   symbol: string;
-  tokenSupply: BigInt;
-  userBalance: BigInt;
+  tokenSupply: string;
+  userBalance: string;
   tokenDecimals: number;
 };
 
@@ -18,8 +18,8 @@ const initialTokenData: TokenData = {
   tokenAddress: "",
   tokenName: "",
   symbol: "",
-  tokenSupply: BigInt(0),
-  userBalance: BigInt(0),
+  tokenSupply: "",
+  userBalance: "",
   tokenDecimals: 0,
 };
 
@@ -70,8 +70,8 @@ const useTokenData = (
           tokenAddress: address,
           tokenName: result[0].result as string,
           symbol: result[1].result as string,
-          tokenSupply: result[3].result as BigInt,
-          userBalance: result[4].result as BigInt,
+          tokenSupply: result[3].result as string,
+          userBalance: result[4].result as string,
           tokenDecimals: result[2].result as number,
         });
       } catch (error) {
