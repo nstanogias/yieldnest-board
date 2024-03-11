@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { readContract } from "@wagmi/core";
-import { config } from "@/lib/config";
+import { readContracts } from "@wagmi/core";
+import { config } from "../lib/config";
 import { Abi } from "viem";
 
 type TokenData = {
@@ -32,41 +32,47 @@ const useTokenData = (
 
   useEffect(() => {
     if (!address || !abi) return;
+    const tokenContract = {
+      address,
+      abi,
+    } as const;
     const fetchTokenData = async () => {
       try {
-        const tokenName = await readContract(config, {
-          address,
-          abi,
-          functionName: "name",
+        const result = await readContracts(config, {
+          contracts: [
+            {
+              ...tokenContract,
+              functionName: "name",
+            },
+            {
+              ...tokenContract,
+              functionName: "symbol",
+            },
+            {
+              ...tokenContract,
+              functionName: "decimals",
+              args: [69],
+            },
+            {
+              ...tokenContract,
+              functionName: "totalSupply",
+            },
+            {
+              ...tokenContract,
+              functionName: "balanceOf",
+              args: [account],
+            },
+          ],
         });
-        const symbol = await readContract(config, {
-          address,
-          abi,
-          functionName: "symbol",
-        });
-        const totalSupply = await readContract(config, {
-          address,
-          abi,
-          functionName: "totalSupply",
-        });
-        const userBalance = await readContract(config, {
-          address,
-          abi,
-          functionName: "balanceOf",
-          args: [account],
-        });
-        const decimals = await readContract(config, {
-          address,
-          abi,
-          functionName: "decimals",
-        });
+        console.log(result);
+
         setTokenData({
           tokenAddress: address,
-          tokenName: tokenName as string,
-          symbol: symbol as string,
-          tokenSupply: totalSupply as BigInt,
-          userBalance: userBalance as BigInt,
-          tokenDecimals: decimals as number,
+          tokenName: result[0].result as string,
+          symbol: result[1].result as string,
+          tokenSupply: result[3].result as BigInt,
+          userBalance: result[4].result as BigInt,
+          tokenDecimals: result[2].result as number,
         });
       } catch (error) {
         console.error(error);

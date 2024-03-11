@@ -72,7 +72,7 @@ const DepositForm = () => {
     }
   };
   return (
-    <form onSubmit={submitHandler} className="flex flex-col">
+    <form onSubmit={submitHandler} className="flex flex-col mt-8">
       <label className="font-bold">Deposit ETH</label>
       <input onChange={(e) => setNumTokens(e.target.value)} />
       <button

@@ -34,13 +34,15 @@ export const TokenDataSection = () => {
         <InfoCard title="Token Name" content={tokenName} />
         <InfoCard title="Token Decimals" content={tokenDecimals} />
       </div>
-      <div className="mt-3 flex gap-2">
+      <div className="mt-8 flex gap-2">
         <span className="font-semibold">User Balance</span>
         <span>{userBalance.toString()}</span>
       </div>
       <div className="mt-3 flex gap-2">
         <span className="font-semibold">Total Supply</span>
-        <span>{tokenSupply.toString()}</span>
+        <span>
+          {tokenSupply.toString()} {tokenName}
+        </span>
       </div>
     </section>
   );
